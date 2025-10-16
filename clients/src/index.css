@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body , html {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #333;
+    background-color: #f1f1f1;
+}
+
+.sidBar{
+    position:fixed ;
+    background-color: #4d4d50;
+    height: 100vh;
+    color: #ccc;
+    padding: .7rem;
+    z-index: 1000;
+}
+
+.mainDash{
+    position: absolute;
+    top: 30px;
+    padding: 1rem;
+    left: 90px;
+    width: calc(100% - 90px);
+}
+
+
+.table td {
+  vertical-align: middle;
+  text-align: center;
+  height: 100px;
+}
+
+td img {
+  display: block;
+  margin: 0 auto; 
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+  width: 80px;
+  height: 80px;
+}
+
+
+.posts-container {
+  padding: 15px;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+
+.addBtn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: .4rem 16px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  /* gap: 3px; */
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.addBtn:hover {
+  background-color: #0056b3;
+  transform: scale(1.03);
+}
+
+/* 🖼️ Image ronde des posts */
+.post-img {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+/* 🧾 Table responsive */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+
+@media (max-width: 768px) {
+  .addBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .table th:nth-child(3),
+  .table td:nth-child(3),
+  .table th:nth-child(4),
+  .table td:nth-child(4) {
+    display: none;
+  }
+
+  .table td img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .table th,
+  .table td {
+    font-size: 0.85rem;
+    padding: 6px;
+  }
+}
