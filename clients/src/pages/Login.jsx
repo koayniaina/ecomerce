@@ -3,13 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Login() {
-  const { login } = useContext(AuthContext);
+  // Vérifie que le contexte existe avant de destructurer
+  const authContext = useContext(AuthContext);
   const navigate = useNavigate();
+
+  if (!authContext) {
+    throw new Error("Login must be used within an AuthProvider");
+  }
+
+  const { login } = authContext;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // 🔹 ajout du loading
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,14 +26,16 @@ export default function Login() {
     try {
       const user = await login(email, password);
 
+      if (!user) throw new Error("Utilisateur non trouvé");
+
       if (user.role === "admin") {
         navigate("/admin");
       } else {
-        navigate("/"); // redirection client normal
+        navigate("/"); 
       }
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || "Erreur serveur");
+      setError(err.response?.data?.message || err.message || "Erreur serveur");
     } finally {
       setLoading(false);
     }

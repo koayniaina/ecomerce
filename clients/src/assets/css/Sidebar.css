@@ -1,0 +1,31 @@
+
+.sidBar{
+    position:fixed ;
+    border-right: 1px solid rgba(224, 224, 224, 0.836);
+    height: 100vh;
+    /* background-color: rgb(233, 233, 233); */
+    padding: 1rem;
+    z-index: 1000;
+
+    a{
+      color: rgba(39, 39, 39, 0.863);
+      text-decoration: none;
+    }
+}
+
+.sidBar .top-links{
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+
+  a{
+    margin: 10px 0;
+  }
+}
+
+.bottom-links{
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+
+}

@@ -1,11 +1,14 @@
 .navAdmin{
-    background-color: #616161;
+    background-color: rgb(255, 255, 255);
     padding: 1rem;
+    width: 100%;
+    color: rgb(0, 0, 0);
     position:fixed;
     top: 0;
-    width: 100%;
+    left: 57px;
+    width: calc(100% - 57px);
     z-index: 1000;
-    color: #e2e2e2;
-     left: 80px;
-    width: calc(100% - 80px);
+
 }
+
+

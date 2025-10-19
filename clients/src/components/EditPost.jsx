@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import api from "../api/api";
@@ -44,6 +43,7 @@ const EditPost = () => {
       await api.put(`/posts/${id}`, form);
       toast.success("Post mis à jour avec succès !");
       setTimeout(() => navigate("/admin"), 1500);
+    // eslint-disable-next-line no-unused-vars
     } catch (error) {
       toast.error(" Erreur lors de la mise à jour du post !");
     }

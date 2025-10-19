@@ -1,0 +1,49 @@
+.admin-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidBar {
+  width: 80px;
+  background: #f3f3f3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.admin-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 80px; /* largeur de la sidebar */
+  width: calc(100% - 80px);
+}
+
+.admin-nav {
+  height: 60px;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  position: fixed;
+  top: 0;
+  left: 80px;
+  right: 0;
+  z-index: 1000;
+}
+
+.admin-content {
+  margin-top: 60px; /* hauteur de la navbar */
+  padding: 2rem;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  background: #fafafa;
+}

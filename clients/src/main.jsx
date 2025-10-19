@@ -1,11 +1,12 @@
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import { RouterProvider } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { router } from './config/router';
+import React, { Suspense } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App"; // import App directement
+import './index.css'
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <AuthProvider>
-    <RouterProvider router={router} />
-  </AuthProvider>
+createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <Suspense fallback={<div>Loading...</div>}>
+      <App />
+    </Suspense>
+  </React.StrictMode>
 );
