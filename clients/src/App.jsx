@@ -2,6 +2,9 @@
 import React, { lazy, Suspense, useContext } from "react";
 import { createBrowserRouter, RouterProvider, Outlet, Navigate } from "react-router-dom";
 import { AuthProvider, AuthContext } from "./context/AuthContext";
+import Cart from "./components/home/Cart";
+import Checkout from "./components/home/Checkout";
+import Customers from "./pages/Customers";
 
 // Pages publiques
 const ClientDashboard = lazy(() => import("./pages/ClientDashboard"));
@@ -12,7 +15,6 @@ const Register = lazy(() => import("./pages/Register"));
 const AdminDashboard = lazy(() => import("./components/admin/AdminDashboard"));
 const Overview = lazy(() => import("./pages/Overview"));
 const Orders = lazy(() => import("./pages/Orders"));
-const Users = lazy(() => import("./pages/Users"));
 const PostsPage = lazy(() => import("./pages/PostsPage"));
 const FormPost = lazy(() => import("./components/FormPost"));
 const EditPost = lazy(() => import("./components/EditPost"));
@@ -43,8 +45,11 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
       { path: "*", element: <NotFound /> },
+      
     ],
   },
+  { path: "cart", element: <Cart /> },
+  { path: "checkout" , element: <Checkout />},
   {
     path: "/admin",
     element: (
@@ -55,7 +60,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Overview /> },
       { path: "orders", element: <Orders /> },
-      { path: "users", element: <Users /> },
+      { path: "customer", element: <Customers /> },
       { path: "posts", element: <PostsPage /> },
       { path: "create-post", element: <FormPost /> },
       { path: "edit-post/:id", element: <EditPost /> },

@@ -39,7 +39,7 @@ export default function FormPost() {
       setForm({ title: "", category: "", price: "", image: "" });
 
       // ✅ Redirection après succès
-      navigate("/admin");
+      navigate("/admin/posts");
     } catch (err) {
       console.error(err.response?.data || err.message);
       setError(err.response?.data?.message || "Erreur serveur");

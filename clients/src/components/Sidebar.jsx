@@ -33,11 +33,11 @@ export default function Sidebar() {
         </NavLink>
 
         <NavLink
-          to="/admin/users"
+          to="/admin/customer"
           className={({ isActive }) =>
             `${linkClass} ${isActive ? activeClass : ""} tooltip tooltip-right`
           }
-          data-tip="Users"
+          data-tip="Customers"
         >
           <span className="material-symbols-outlined">account_circle</span>
         </NavLink>
