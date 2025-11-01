@@ -19,7 +19,7 @@ export const PostsProvider = ({ children }) => {
   const createPost = async (postData) => {
     try {
       const response = await api.post("/posts", postData);
-      setPosts(prev => [...prev, response.data]); // ajouter directement le nouveau post
+      setPosts(prev => [...prev, response.data]); 
       return response.data;
     } catch (error) {
       console.error(error);

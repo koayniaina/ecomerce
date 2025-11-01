@@ -1,27 +1,30 @@
 // App.jsx
-import React, { lazy, Suspense, useContext } from "react";
+import React, { useContext } from "react";
 import { createBrowserRouter, RouterProvider, Outlet, Navigate } from "react-router-dom";
 import { AuthProvider, AuthContext } from "./context/AuthContext";
+
+// Composants
 import Cart from "./components/home/Cart";
 import Checkout from "./components/home/Checkout";
 import Customers from "./pages/Customers";
+import CustomerDetails from "./components/home/CustomerDetails";
 
 // Pages publiques
-const ClientDashboard = lazy(() => import("./pages/ClientDashboard"));
-const Login = lazy(() => import("./pages/Login"));
-const Register = lazy(() => import("./pages/Register"));
+import ClientDashboard from "./pages/ClientDashboard";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 // Pages admin
-const AdminDashboard = lazy(() => import("./components/admin/AdminDashboard"));
-const Overview = lazy(() => import("./pages/Overview"));
-const Orders = lazy(() => import("./pages/Orders"));
-const PostsPage = lazy(() => import("./pages/PostsPage"));
-const FormPost = lazy(() => import("./components/FormPost"));
-const EditPost = lazy(() => import("./components/EditPost"));
+import AdminDashboard from "./components/admin/AdminDashboard";
+import Overview from "./pages/Overview";
+import Orders from "./pages/Orders";
+import PostsPage from "./pages/PostsPage";
+import FormPost from "./components/FormPost";
+import EditPost from "./components/EditPost";
 
-const NotFound = lazy(() => import("./pages/NotFound"));
+import NotFound from "./pages/NotFound";
 
-// ProtectedRoute pour authentification + rôle
+
 function ProtectedRoute({ roleRequired, children }) {
   const { user } = useContext(AuthContext);
 
@@ -31,7 +34,7 @@ function ProtectedRoute({ roleRequired, children }) {
   return children;
 }
 
-// Layout pour routes publiques
+
 function PublicLayout() {
   return <Outlet />;
 }
@@ -45,11 +48,11 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
       { path: "*", element: <NotFound /> },
-      
     ],
   },
   { path: "cart", element: <Cart /> },
-  { path: "checkout" , element: <Checkout />},
+  { path: "checkout", element: <Checkout /> },
+  { path: "/admin/customers/:id", element: <CustomerDetails /> },
   {
     path: "/admin",
     element: (
@@ -71,9 +74,7 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <AuthProvider>
-      <Suspense fallback={<div>Loading...</div>}>
-        <RouterProvider router={router} />
-      </Suspense>
+      <RouterProvider router={router} />
     </AuthProvider>
   );
 }

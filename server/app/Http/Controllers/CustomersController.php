@@ -6,20 +6,34 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 
 class CustomersController extends Controller
-{
-    // Récupérer tous les clients avec leurs commandes
-    public function index()
+{ public function store(Request $request)
     {
-        $customers = Customer::with('orders')->get();
-        return response()->json($customers);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:customers,email',
+            'address' => 'required|string',
+            'phone' => 'required|string',
+        ]);
+
+        $customer = Customer::create($validated);
+
+        return response()->json($customer, 201);
     }
 
-    // Supprimer un client
+    public function index()
+    {
+        return Customer::all();
+    }
+
+    public function show($id)
+{
+    // Assure-toi de récupérer aussi les commandes
+    return Customer::with('orders')->findOrFail($id);
+}
+
     public function destroy($id)
     {
-        $customer = Customer::findOrFail($id);
-        $customer->delete();
-
-        return response()->json(['message' => 'Client supprimé avec succès']);
+        Customer::findOrFail($id)->delete();
+        return response()->json(null, 204);
     }
 }

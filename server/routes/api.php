@@ -23,6 +23,8 @@ Route::middleware(['auth:api'])->group(function () {
 Route::apiResource('posts', PostController::class);
 
 Route::get('/customers', [CustomersController::class, 'index']);
+Route::post('/customers', [CustomersController::class, 'store']);
+Route::get('/customers/{id}', [CustomersController::class, 'show']);
 Route::delete('/customers/{id}', [CustomersController::class, 'destroy']);
 
 Route::get('/orders', [OrderController::class, 'index']);

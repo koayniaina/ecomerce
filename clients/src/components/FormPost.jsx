@@ -16,7 +16,6 @@ export default function FormPost() {
   });
   const [error, setError] = useState("");
 
-  // Remplir le formulaire si on édite un post
   useEffect(() => {
     if (editingPost) {
       setForm(editingPost);
@@ -38,7 +37,7 @@ export default function FormPost() {
 
       setForm({ title: "", category: "", price: "", image: "" });
 
-      // ✅ Redirection après succès
+
       navigate("/admin/posts");
     } catch (err) {
       console.error(err.response?.data || err.message);

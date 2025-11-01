@@ -1,20 +1,25 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Customers() {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   useEffect(() => {
     fetchCustomers();
-  }, []);
+  }, [location.state]);
 
   const fetchCustomers = async () => {
+    setLoading(true);
     try {
-      const response = await axios.get("http://localhost:8000/api/customers"); // API Laravel
-      setCustomers(response.data);
+      const res = await axios.get("http://127.0.0.1:8000/api/customers");
+      setCustomers(res.data);
+      setError(null);
     } catch (err) {
       console.error(err);
       setError("Erreur lors de la récupération des clients.");
@@ -25,14 +30,17 @@ export default function Customers() {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Voulez-vous vraiment supprimer ce client ?")) return;
-
     try {
-      await axios.delete(`http://localhost:8000/api/customers/${id}`);
-      setCustomers(customers.filter((c) => c.id !== id));
+      await axios.delete(`http://127.0.0.1:8000/api/customers/${id}`);
+      setCustomers(customers.filter(c => c.id !== id));
     } catch (err) {
       console.error(err);
       alert("Erreur lors de la suppression du client.");
     }
+  };
+
+  const handleView = (id) => {
+    navigate(`/admin/customers/${id}`);
   };
 
   if (loading) return <p className="p-6">Chargement des clients...</p>;
@@ -41,10 +49,7 @@ export default function Customers() {
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-6">Liste des clients</h1>
-
-      {customers.length === 0 ? (
-        <p>Aucun client trouvé.</p>
-      ) : (
+      {customers.length === 0 ? <p>Aucun client trouvé.</p> : (
         <div className="overflow-x-auto">
           <table className="min-w-full border rounded-lg shadow">
             <thead className="bg-gray-100">
@@ -52,41 +57,18 @@ export default function Customers() {
                 <th className="py-2 px-4 border-b text-left">Nom</th>
                 <th className="py-2 px-4 border-b text-left">Email</th>
                 <th className="py-2 px-4 border-b text-left">Téléphone</th>
-                <th className="py-2 px-4 border-b text-left">Commandes</th>
                 <th className="py-2 px-4 border-b text-center">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {customers.map((customer) => (
-                <tr key={customer.id} className="hover:bg-gray-50">
-                  <td className="py-2 px-4 border-b">{customer.name}</td>
-                  <td className="py-2 px-4 border-b">{customer.email}</td>
-                  <td className="py-2 px-4 border-b">
-                    {customer.phone || "-"}
-                  </td>
-                  <td className="py-2 px-4 border-b">
-                    {customer.orders && customer.orders.length > 0 ? (
-                      <ul className="list-disc pl-5">
-                        {customer.orders.map((order) => (
-                          <li key={order.id}>
-                            #{order.id} -{" "}
-                            {order.total
-                              ? `${order.total.toFixed(2)} €`
-                              : "Montant inconnu"}
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      "Aucune commande"
-                    )}
-                  </td>
-                  <td className="py-2 px-4 border-b text-center">
-                    <button
-                      onClick={() => handleDelete(customer.id)}
-                      className="bg-red-600 text-white py-1 px-3 rounded hover:bg-red-700 transition"
-                    >
-                      Supprimer
-                    </button>
+              {customers.map(c => (
+                <tr key={c.id} className="hover:bg-gray-50">
+                  <td className="py-2 px-4 border-b">{c.name}</td>
+                  <td className="py-2 px-4 border-b">{c.email}</td>
+                  <td className="py-2 px-4 border-b">{c.phone || "-"}</td>
+                  <td className="py-2 px-4 border-b text-center flex justify-center gap-2">
+                    <button onClick={() => handleView(c.id)} className="bg-blue-600 text-white py-1 px-3 rounded hover:bg-blue-700">Voir</button>
+                    <button onClick={() => handleDelete(c.id)} className="bg-red-600 text-white py-1 px-3 rounded hover:bg-red-700">Supprimer</button>
                   </td>
                 </tr>
               ))}

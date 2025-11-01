@@ -28,6 +28,12 @@ const Cart = () => {
         <Link to="/" className="text-blue-600 hover:underline mr-4">
           Voir les posts
         </Link>
+      <button
+        onClick={handleCheckout}
+        className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700"
+      >
+        Checkout
+      </button>
       </div>
 
       {cart.length === 0 ? (
@@ -58,12 +64,6 @@ const Cart = () => {
                     className="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700"
                   >
                     Supprimer
-                  </button>
-                  <button
-                    onClick={handleCheckout}
-                    className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700"
-                  >
-                    Checkout
                   </button>
                 </div>
               </div>
